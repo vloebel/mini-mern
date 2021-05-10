@@ -31,7 +31,7 @@ const SingleThought = props => {
           thought on {thought.createdAt}
         </p>
         <div className="card-body">
-          <p>{thought.thoughtText}</p>
+          <p>{thought.bioText}</p>
         </div>
       </div>
 

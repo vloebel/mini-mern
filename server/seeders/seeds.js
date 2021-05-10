@@ -38,12 +38,12 @@ db.once('open', async () => {
   // create thoughts
   let createdThoughts = [];
   for (let i = 0; i < 100; i += 1) {
-    const thoughtText = faker.lorem.words(Math.round(Math.random() * 20) + 1);
+    const bioText = faker.lorem.words(Math.round(Math.random() * 20) + 1);
 
     const randomUserIndex = Math.floor(Math.random() * createdUsers.ops.length);
     const { username, _id: userId } = createdUsers.ops[randomUserIndex];
 
-    const createdThought = await Thought.create({ thoughtText, username });
+    const createdThought = await Thought.create({ bioText, username });
 
     const updatedUser = await User.updateOne(
       { _id: userId },
