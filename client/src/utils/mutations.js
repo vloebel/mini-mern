@@ -25,10 +25,10 @@ export const ADD_USER = gql`
 `;
 
 export const ADD_THOUGHT = gql`
-  mutation addThought($bioText: String!) {
-    addThought(bioText: $bioText) {
+  mutation addProject($projectText: String!) {
+    addProject(projectText: $projectText) {
       _id
-      bioText
+      projectText
       createdAt
       username
       reactionCount
@@ -40,8 +40,8 @@ export const ADD_THOUGHT = gql`
 `;
 
 export const ADD_REACTION = gql`
-  mutation addReaction($thoughtId: ID!, $reactionBody: String!) {
-    addReaction(thoughtId: $thoughtId, reactionBody: $reactionBody) {
+  mutation addReaction($projectId: ID!, $reactionBody: String!) {
+    addReaction(projectId: $projectId, reactionBody: $reactionBody) {
       _id
       reactionCount
       reactions {

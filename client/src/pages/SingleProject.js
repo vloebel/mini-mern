@@ -8,14 +8,14 @@ import Auth from '../utils/auth';
 import { useQuery } from '@apollo/react-hooks';
 import { QUERY_THOUGHT } from '../utils/queries';
 
-const SingleThought = props => {
-  const { id: thoughtId } = useParams();
+const SingleProject = props => {
+  const { id: projectId } = useParams();
 
   const { loading, data } = useQuery(QUERY_THOUGHT, {
-    variables: { id: thoughtId }
+    variables: { id: projectId }
   });
 
-  const thought = data?.thought || {};
+  const project = data?.project || {};
 
   if (loading) {
     return <div>Loading...</div>;
@@ -26,20 +26,20 @@ const SingleThought = props => {
       <div className="card mb-3">
         <p className="card-header">
           <span style={{ fontWeight: 700 }} className="text-light">
-            {thought.username}
+            {project.username}
           </span>{' '}
-          thought on {thought.createdAt}
+          project on {project.createdAt}
         </p>
         <div className="card-body">
-          <p>{thought.bioText}</p>
+          <p>{project.projectText}</p>
         </div>
       </div>
 
-      {thought.reactionCount > 0 && <ReactionList reactions={thought.reactions} />}
+      {project.reactionCount > 0 && <ReactionList reactions={project.reactions} />}
 
-      {Auth.loggedIn() && <ReactionForm thoughtId={thought._id} />}
+      {Auth.loggedIn() && <ReactionForm projectId={project._id} />}
     </div>
   );
 };
 
-export default SingleThought;
+export default SingleProject;

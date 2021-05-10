@@ -1,6 +1,6 @@
 import React from 'react';
-import ThoughtList from '../components/ThoughtList';
-import ThoughtForm from '../components/ThoughtForm';
+import ProjectList from '../components/ProjectList';
+import ProjectForm from '../components/ProjectForm';
 import FriendList from '../components/FriendList';
 
 import Auth from '../utils/auth';
@@ -10,7 +10,7 @@ import { QUERY_THOUGHTS, QUERY_ME_BASIC } from '../utils/queries';
 const Home = () => {
   const { loading, data } = useQuery(QUERY_THOUGHTS);
   const { data: userData } = useQuery(QUERY_ME_BASIC);
-  const thoughts = data?.thoughts || [];
+  const projects = data?.projects || [];
 
   const loggedIn = Auth.loggedIn();
 
@@ -19,14 +19,14 @@ const Home = () => {
       <div className="flex-row justify-space-between">
         {loggedIn && (
           <div className="col-12 mb-3">
-            <ThoughtForm />
+            <ProjectForm />
           </div>
         )}
         <div className={`col-12 mb-3 ${loggedIn && 'col-lg-8'}`}>
           {loading ? (
             <div>Loading...</div>
           ) : (
-            <ThoughtList thoughts={thoughts} title="Some Feed for Thought(s)..." />
+            <ProjectList projects={projects} title="Some Feed for Project(s)..." />
           )}
         </div>
         {loggedIn && userData ? (

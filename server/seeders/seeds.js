@@ -1,10 +1,10 @@
 const faker = require('faker');
 
 const db = require('../config/connection');
-const { Thought, User } = require('../models');
+const { Project, User } = require('../models');
 
 db.once('open', async () => {
-  await Thought.deleteMany({});
+  await Project.deleteMany({});
   await User.deleteMany({});
 
   // create user data
@@ -35,22 +35,22 @@ db.once('open', async () => {
     await User.updateOne({ _id: userId }, { $addToSet: { friends: friendId } });
   }
 
-  // create thoughts
-  let createdThoughts = [];
+  // create projects
+  let createdProjects = [];
   for (let i = 0; i < 100; i += 1) {
-    const bioText = faker.lorem.words(Math.round(Math.random() * 20) + 1);
+    const projectText = faker.lorem.words(Math.round(Math.random() * 20) + 1);
 
     const randomUserIndex = Math.floor(Math.random() * createdUsers.ops.length);
     const { username, _id: userId } = createdUsers.ops[randomUserIndex];
 
-    const createdThought = await Thought.create({ bioText, username });
+    const createdProject = await Project.create({ projectText, username });
 
     const updatedUser = await User.updateOne(
       { _id: userId },
-      { $push: { thoughts: createdThought._id } }
+      { $push: { projects: createdProject._id } }
     );
 
-    createdThoughts.push(createdThought);
+    createdProjects.push(createdProject);
   }
 
   // create reactions
@@ -60,11 +60,11 @@ db.once('open', async () => {
     const randomUserIndex = Math.floor(Math.random() * createdUsers.ops.length);
     const { username } = createdUsers.ops[randomUserIndex];
 
-    const randomThoughtIndex = Math.floor(Math.random() * createdThoughts.length);
-    const { _id: thoughtId } = createdThoughts[randomThoughtIndex];
+    const randomProjectIndex = Math.floor(Math.random() * createdProjects.length);
+    const { _id: projectId } = createdProjects[randomProjectIndex];
 
-    await Thought.updateOne(
-      { _id: thoughtId },
+    await Project.updateOne(
+      { _id: projectId },
       { $push: { reactions: { reactionBody, username } } },
       { runValidators: true }
     );

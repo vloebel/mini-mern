@@ -4,19 +4,19 @@ import { useMutation } from '@apollo/react-hooks';
 import { ADD_THOUGHT } from '../../utils/mutations';
 import { QUERY_THOUGHTS, QUERY_ME } from '../../utils/queries';
 
-const ThoughtForm = () => {
-  const [thoughtText, setText] = useState('');
+const ProjectForm = () => {
+  const [projectText, setText] = useState('');
   const [characterCount, setCharacterCount] = useState(0);
 
-  const [addThought, { error }] = useMutation(ADD_THOUGHT, {
-    update(cache, { data: { addThought } }) {
+  const [addProject, { error }] = useMutation(ADD_THOUGHT, {
+    update(cache, { data: { addProject } }) {
       try {
-        // update thought array's cache
+        // update project array's cache
         // could potentially not exist yet, so wrap in a try/catch
-        const { thoughts } = cache.readQuery({ query: QUERY_THOUGHTS });
+        const { projects } = cache.readQuery({ query: QUERY_THOUGHTS });
         cache.writeQuery({
           query: QUERY_THOUGHTS,
-          data: { thoughts: [addThought, ...thoughts] }
+          data: { projects: [addProject, ...projects] }
         });
       } catch (e) {
         console.error(e);
@@ -26,7 +26,7 @@ const ThoughtForm = () => {
       const { me } = cache.readQuery({ query: QUERY_ME });
       cache.writeQuery({
         query: QUERY_ME,
-        data: { me: { ...me, thoughts: [...me.thoughts, addThought] } }
+        data: { me: { ...me, projects: [...me.projects, addProject] } }
       });
     }
   });
@@ -44,8 +44,8 @@ const ThoughtForm = () => {
     event.preventDefault();
 
     try {
-      await addThought({
-        variables: { thoughtText }
+      await addProject({
+        variables: { projectText }
       });
 
       // clear form value
@@ -67,8 +67,8 @@ const ThoughtForm = () => {
         onSubmit={handleFormSubmit}
       >
         <textarea
-          placeholder="Here's a new thought..."
-          value={thoughtText}
+          placeholder="Here's a new project..."
+          value={projectText}
           className="form-input col-12 col-md-9"
           onChange={handleChange}
         ></textarea>
@@ -80,4 +80,4 @@ const ThoughtForm = () => {
   );
 };
 
-export default ThoughtForm;
+export default ProjectForm;
