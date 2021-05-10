@@ -1,10 +1,13 @@
 const { gql } = require('apollo-server-express');
-
+//vll:?? How do you assign a proj to a user or do
+// other stuff ? Doesn't need a mutation?
 const typeDefs = gql`
   type User {
     _id: ID
     username: String
     email: String
+    headshot: String
+    bio: String
     friendCount: Int
     projects: [Project]
     friends: [User]
@@ -12,20 +15,13 @@ const typeDefs = gql`
 
   type Project {
     _id: ID
-    projectText: String
-    createdAt: String
-    username: String
-    reactionCount: Int
-    reactions: [Reaction]
+    title: String
+    organizaton: String
+    imgLink: Int
+    deployedLink: String
+    skillList: [String]
   }
-
-  type Reaction {
-    _id: ID
-    reactionBody: String
-    createdAt: String
-    username: String
-  }
-
+ 
   type Auth {
     token: ID!
     user: User
@@ -41,10 +37,24 @@ const typeDefs = gql`
 
   type Mutation {
     login(email: String!, password: String!): Auth
-    addUser(username: String!, email: String!, password: String!): Auth
-    addProject(projectText: String!): Project
-    addReaction(projectId: ID!, reactionBody: String!): Project
-    addFriend(friendId: ID!): User
+
+    createUser(username: String!,
+      email: String!,
+      password: String!,
+      headshot: String,
+      bio: String,
+      friendCount: Int,
+      projects: [Project],
+      friends: [User],
+      ): Auth
+
+    createProject(title: String!,
+      organizaton: String,
+      imgLink: Int,
+      deployedLink: String,
+      skillList: [String]
+      ): Project
+
   }
 `;
 

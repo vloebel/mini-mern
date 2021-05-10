@@ -31,7 +31,7 @@ const SingleProject = props => {
           project on {project.createdAt}
         </p>
         <div className="card-body">
-          <p>{project.projectText}</p>
+          <p>{project.ProjectTitle}</p>
         </div>
       </div>
 

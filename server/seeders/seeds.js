@@ -38,12 +38,12 @@ db.once('open', async () => {
   // create projects
   let createdProjects = [];
   for (let i = 0; i < 100; i += 1) {
-    const projectText = faker.lorem.words(Math.round(Math.random() * 20) + 1);
+    const ProjectTitle = faker.lorem.words(Math.round(Math.random() * 20) + 1);
 
     const randomUserIndex = Math.floor(Math.random() * createdUsers.ops.length);
     const { username, _id: userId } = createdUsers.ops[randomUserIndex];
 
-    const createdProject = await Project.create({ projectText, username });
+    const createdProject = await Project.create({ ProjectTitle, username });
 
     const updatedUser = await User.updateOne(
       { _id: userId },

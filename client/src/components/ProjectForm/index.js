@@ -5,7 +5,7 @@ import { ADD_THOUGHT } from '../../utils/mutations';
 import { QUERY_THOUGHTS, QUERY_ME } from '../../utils/queries';
 
 const ProjectForm = () => {
-  const [projectText, setText] = useState('');
+  const [ProjectTitle, setText] = useState('');
   const [characterCount, setCharacterCount] = useState(0);
 
   const [addProject, { error }] = useMutation(ADD_THOUGHT, {
@@ -45,7 +45,7 @@ const ProjectForm = () => {
 
     try {
       await addProject({
-        variables: { projectText }
+        variables: { ProjectTitle }
       });
 
       // clear form value
@@ -68,7 +68,7 @@ const ProjectForm = () => {
       >
         <textarea
           placeholder="Here's a new project..."
-          value={projectText}
+          value={ProjectTitle}
           className="form-input col-12 col-md-9"
           onChange={handleChange}
         ></textarea>

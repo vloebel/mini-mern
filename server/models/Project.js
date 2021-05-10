@@ -1,36 +1,46 @@
 const { Schema, model } = require('mongoose');
-const reactionSchema = require('./Reaction');
-const dateFormat = require('../utils/dateFormat');
+const { projectSchema } = require('./Project');
+
+
+// PROJECT:
+//  projectTitle!
+//  organization
+//  imgLinkLink
+//  deployedLink
+//  skillList
 
 const projectSchema = new Schema(
   {
-    projectText: {
+    title: {
       type: String,
-      required: 'You need to leave a project!',
+      required: 'Each project needs a title',
       minlength: 1,
       maxlength: 280
     },
-    createdAt: {
-      type: Date,
-      default: Date.now,
-      get: timestamp => dateFormat(timestamp)
-    },
-    username: {
+    organization: {
       type: String,
-      required: true
+      maxlength: 280
     },
-    reactions: [reactionSchema]
-  },
-  {
-    toJSON: {
-      getters: true
-    }
-  }
-);
+    blurb: {
+      type: String,
+      required: false,
+      trim: true,
+      default: 'Optional text description'
+    },
+    imgLink: {
+      type: String,
+      maxlength: 280,
+      default: 'https://via.placeholder.com/300'
 
-projectSchema.virtual('reactionCount').get(function() {
-  return this.reactions.length;
-});
+    },
+    deployedLink: {
+      type: String,
+      maxlength: 280
+    },
+    skillList: [String]
+  },
+  
+);
 
 const Project = model('Project', projectSchema);
 

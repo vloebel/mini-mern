@@ -1,6 +1,38 @@
 const { Schema, model } = require('mongoose');
 const bcrypt = require('bcrypt');
 
+//USER:
+// username!
+// email!
+// password!
+// headshot
+// bio
+// projects[Project]
+// friends[User]
+
+// this may need its own file
+const socialMediaSchema = new Schema(
+  {
+    linkName: {
+      type: String,
+      required: true,
+      maxlength: 280
+    },
+    linkIcon: {
+      type: String,
+      maxlength: 280
+    },
+    linkAddress: {
+      type: String,
+      required: true,
+      maxlength: 280
+    }
+  }
+)
+
+// ************************** ///
+
+
 const userSchema = new Schema(
   {
     username: {
@@ -18,8 +50,22 @@ const userSchema = new Schema(
     password: {
       type: String,
       required: true,
-      minlength: 5
+      minlength: 8
     },
+    headshot: {
+      type: String,
+      required: false,
+      default: 'https://via.placeholder.com/150'
+    },
+    bio: {
+      type: String,
+      required: false,
+      trim: true,
+      default: 'Enter a short bio for your portfolio'
+    },
+
+    socialLinks: [socialMediaSchema],
+
     projects: [
       {
         type: Schema.Types.ObjectId,
@@ -40,8 +86,9 @@ const userSchema = new Schema(
   }
 );
 
+
 // set up pre-save middleware to create password
-userSchema.pre('save', async function(next) {
+userSchema.pre('save', async function (next) {
   if (this.isNew || this.isModified('password')) {
     const saltRounds = 10;
     this.password = await bcrypt.hash(this.password, saltRounds);
@@ -51,11 +98,12 @@ userSchema.pre('save', async function(next) {
 });
 
 // compare the incoming password with the hashed password
-userSchema.methods.isCorrectPassword = async function(password) {
+userSchema.methods.isCorrectPassword = async function (password) {
   return bcrypt.compare(password, this.password);
 };
 
-userSchema.virtual('friendCount').get(function() {
+//vll: not sure we need friendcount but leaving for now
+userSchema.virtual('friendCount').get(function () {
   return this.friends.length;
 });
 

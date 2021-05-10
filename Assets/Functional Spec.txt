@@ -1,3 +1,21 @@
+DATA STRUCTURES:
+// PROJECT:
+//  projectTitle!
+//  organization
+//  imgLinkLink
+//  deployedLink
+//  skillList
+
+//USER:
+// username!
+// email!
+// password!
+// headshot
+// bio
+// projects[Project]
+// friends[User]
+
+
 [square brackets] = UI logic
 <angle brackets>  = UI function/component
 {curly braces} = Input and/or display

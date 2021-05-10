@@ -4,7 +4,7 @@ export const QUERY_THOUGHTS = gql`
   query projects($username: String) {
     projects(username: $username) {
       _id
-      projectText
+      ProjectTitle
       createdAt
       username
       reactionCount
@@ -22,7 +22,7 @@ export const QUERY_THOUGHT = gql`
   query project($id: ID!) {
     project(_id: $id) {
       _id
-      projectText
+      ProjectTitle
       createdAt
       username
       reactionCount
@@ -49,7 +49,7 @@ export const QUERY_USER = gql`
       }
       projects {
         _id
-        projectText
+        ProjectTitle
         createdAt
         reactionCount
       }
@@ -66,7 +66,7 @@ export const QUERY_ME = gql`
       friendCount
       projects {
         _id
-        projectText
+        ProjectTitle
         createdAt
         reactionCount
         reactions {

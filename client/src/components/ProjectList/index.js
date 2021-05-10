@@ -24,7 +24,7 @@ const ProjectList = ({ projects, title }) => {
             </p>
             <div className="card-body">
               <Link to={`/project/${project._id}`}>
-                <p>{project.projectText}</p>
+                <p>{project.ProjectTitle}</p>
                 <p className="mb-0">
                   Reactions: {project.reactionCount} || Click to{' '}
                   {project.reactionCount ? 'see' : 'start'} the discussion!

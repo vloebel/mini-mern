@@ -25,10 +25,10 @@ export const ADD_USER = gql`
 `;
 
 export const ADD_THOUGHT = gql`
-  mutation addProject($projectText: String!) {
-    addProject(projectText: $projectText) {
+  mutation addProject($ProjectTitle: String!) {
+    addProject(ProjectTitle: $ProjectTitle) {
       _id
-      projectText
+      ProjectTitle
       createdAt
       username
       reactionCount
