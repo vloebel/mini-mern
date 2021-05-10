@@ -13,9 +13,10 @@ const Header = () => {
     <header className="bg-secondary mb-4 py-2 flex-row align-center">
       <div className="container flex-row justify-space-between-lg justify-center align-center">
         <Link to="/">
-          <h1>Deep Thoughts</h1>
+          <h1>MERN Test: Project 3</h1>
         </Link>
-
+{/* if logged in, show links to Me and to logout
+    otherwise link to login and signup */}
         <nav className="text-center">
           {Auth.loggedIn() ? (
             <>
